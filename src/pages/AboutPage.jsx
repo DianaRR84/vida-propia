@@ -1,0 +1,81 @@
+import React from "react";
+
+const AboutPage = () => {
+  return (
+    <div className="container my-5">
+      {/* Sección de Introducción */}
+      <section className="text-center mb-5">
+        <h1 className="display-3 text-primary fw-bold">Bienvenidos a VidaPropia</h1>
+        <p className="lead text-dark mb-4" style={{ fontSize: "1.2rem" }}>
+          En VidaPropia, nos dedicamos a promover un estilo de vida más responsable y sostenible. Cuidamos el planeta mientras
+          potenciamos tu estilo personal. ¡Es el momento de hacer una diferencia!
+        </p>
+        <a href="#valores" className="btn btn-success btn-lg shadow-lg">Descubre más</a>
+      </section>
+
+      {/* Sección sobre la importancia de la moda sostenible */}
+      <section className="row justify-content-center mb-5" id="valores">
+        <div className="col-md-8 text-center">
+          <h2 className="text-warning display-4 mb-3">¿Por qué la moda sostenible?</h2>
+          <p className="text-muted fs-5">
+            La industria de la moda es responsable de una gran parte de la contaminación mundial. Al optar por un enfoque
+            sostenible, podemos reducir el impacto ambiental y mejorar la calidad de vida de las personas que producen nuestra ropa.
+            Cada decisión cuenta.
+          </p>
+        </div>
+      </section>
+
+      {/* Sección de Valores de VidaPropia */}
+      <section className="text-center mb-5">
+        <h2 className="text-primary mb-4">Nuestros Valores</h2>
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          <div className="col">
+            <div className="card shadow-lg border-0 rounded-4 bg-light hover-shadow">
+              <div className="card-body">
+                <h5 className="card-title text-success">Sostenibilidad</h5>
+                <p className="card-text text-muted">
+                  Nuestro objetivo es promover una moda que respete el medio ambiente, eligiendo materiales y procesos que reduzcan el
+                  impacto en el planeta.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col">
+            <div className="card shadow-lg border-0 rounded-4 bg-light hover-shadow">
+              <div className="card-body">
+                <h5 className="card-title text-success">Ética</h5>
+                <p className="card-text text-muted">
+                  Apoyamos las prácticas de comercio justo, asegurándonos de que todos los involucrados en la cadena de producción
+                  trabajen en condiciones justas y transparentes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col">
+            <div className="card shadow-lg border-0 rounded-4 bg-light hover-shadow">
+              <div className="card-body">
+                <h5 className="card-title text-success">Creatividad</h5>
+                <p className="card-text text-muted">
+                  Fomentamos la creatividad y la innovación en cada prenda, con diseños únicos que promueven el reciclaje y el reuso.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Llamado a la acción */}
+      <section className="text-center bg-info py-5 rounded-4 shadow-lg mt-5">
+        <h3 className="text-white mb-4">Únete a la revolución de la moda sostenible</h3>
+        <p className="lead text-white">
+          Cada elección que haces puede transformar la industria de la moda. ¡Haz la diferencia con nosotros!
+        </p>
+        <a href="/consejos" className="btn btn-warning btn-lg text-dark fw-bold shadow-lg">Descubre cómo contribuir</a>
+      </section>
+    </div>
+  );
+};
+
+export default AboutPage;

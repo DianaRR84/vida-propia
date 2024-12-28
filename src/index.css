@@ -1,0 +1,27 @@
+/* src/index.css */
+
+.Navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #282c34;
+  padding: 1rem;
+}
+
+.Navbar ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.Navbar a {
+  text-decoration: none;
+  color: white;
+}
+
+.selected {
+  text-shadow: 1px 0px 3px white;
+  color: #fff;
+  border-bottom: rgba(255, 255, 255, 0.639) solid 2px;
+  padding-bottom: 5px;
+}
+
