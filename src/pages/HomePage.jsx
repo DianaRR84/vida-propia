@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-
+import { FaLeaf, FaPaintBrush, FaShoppingBag } from "react-icons/fa"; // Importar íconos relacionados
 
 function HomePage() {
     return (
@@ -10,11 +10,11 @@ function HomePage() {
           <div className="container">
             <h1 className="display-4 fw-bold">Bienvenido a Vida Propia</h1>
             <p className="lead">Inspiración para transformar tu vida</p>
-            <div className="d-flex justify-content-center gap-3 mt-3">
-              <a href="#about" className="btn btn-light btn-lg">
+            <div className="d-flex justify-content-center gap-3 mt-4">
+              <a href="#about" className="btn btn-light btn-lg shadow-sm">
                 ÚNETE AL CLUB
               </a>
-              <Link to="/login" className="btn btn-outline-light btn-lg">
+              <Link to="/login" className="btn btn-outline-light btn-lg shadow-sm">
                 YA SOY VIDA PROPIA
               </Link>
             </div>
@@ -22,34 +22,58 @@ function HomePage() {
         </section>
   
         {/* About Section */}
-        <section id="about" className="py-5">
+        <section id="about" className="py-5 bg-light">
           <div className="container text-center">
-            <h2 className="fw-bold">¿Quiénes Somos?</h2>
-            <p className="text-muted mt-3">
-              Un proyecto donde la sostenibilidad, el consumo responsable, la creatividad y el impulso rural, son nuestros principales pilares. VIDAPROPIA es nuestro estilo de vida, y queremos que nos acompañéis en esta aventura…
-              Te ofrecemos recursos, apoyo y una comunidad para empoderarte y ayudarte a construir una vida que amas.
+            <h2 className="fw-bold display-5 text-primary">¿Quiénes Somos?</h2>
+            <p className="text-muted mt-3 fs-5">
+              Un proyecto donde la sostenibilidad, el consumo responsable, la creatividad y el impulso rural son nuestros principales pilares. 
+              <b>VIDAPROPIA</b> es nuestro estilo de vida, y queremos que nos acompañes en esta aventura…
             </p>
           </div>
         </section>
   
         {/* Features Section */}
-        <section className="bg-light py-5">
+        <section className="features bg-white py-5">
           <div className="container">
+            <h2 className="text-center text-primary fw-bold mb-5">¿Qué te ofrecemos?</h2>
             <div className="row text-center">
               <div className="col-md-4 mb-4">
-                <i className="bi bi-heart-fill text-danger fs-1"></i>
-                <h4 className="mt-3">Apoyo Comunitario</h4>
-                <p className="text-muted">Una comunidad que te comprende y te respalda.</p>
+                <Link to="/vidaeco" className="text-decoration-none text-dark">
+                  <div className="p-4 rounded shadow-lg hover-shadow">
+                    <FaLeaf className="text-success fs-1 mb-3" />
+                    <h4 className="fw-bold">VIDAECO</h4>
+                    <p className="text-muted">
+                    Una sección llena de alternativas para que tus actividades diarias sean más responsables.
+                    Opciones para generar menos residuos en tu propio hogar o si tienes que  comer fuera de casa.
+                    Declara la guerra a los plásticos de un solo uso.
+                    </p>
+                  </div>
+                </Link>
               </div>
               <div className="col-md-4 mb-4">
-                <i className="bi bi-book-half text-info fs-1"></i>
-                <h4 className="mt-3">Recursos Educativos</h4>
-                <p className="text-muted">Cursos y artículos para tu crecimiento personal.</p>
+                <Link to="/talleres" className="text-decoration-none text-dark">
+                  <div className="p-4 rounded shadow-lg hover-shadow">
+                    <FaPaintBrush className="text-info fs-1 mb-3" />
+                    <h4 className="fw-bold">TALLERES</h4>
+                    <p className="text-muted">
+                    La creatividad es un regalo y nos encanta fomentarla con todo tipo de talleres. 
+                    Tanto si los impartimos nosotras como si vienen expertos en cada campo priorizamos el aprendizaje práctico. Consúltanos.
+                    </p>
+                  </div>
+                </Link>
               </div>
               <div className="col-md-4 mb-4">
-                <i className="bi bi-globe text-success fs-1"></i>
-                <h4 className="mt-3">Impacto Global</h4>
-                <p className="text-muted">Inspiración para transformar vidas en todo el mundo.</p>
+                <Link to="/store" className="text-decoration-none text-dark">
+                  <div className="p-4 rounded shadow-lg hover-shadow">
+                    <FaShoppingBag className="text-danger fs-1 mb-3" />
+                    <h4 className="fw-bold">PIEZAS ÚNICAS</h4>
+                    <p className="text-muted">
+                    Nuestras mochilas y bolsos están hechos a partir de tejidos recuperados de la campaña de recogida que tenemos en la tienda y pequeñas cantidades de telas especiales que compramos.
+                    <br></br>
+                    Entra en nuestra tienda.
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -60,7 +84,7 @@ function HomePage() {
           <div className="container">
             <h2 className="fw-bold">¡Únete a nuestra comunidad!</h2>
             <p className="lead">Regístrate hoy y comienza tu transformación.</p>
-            <Link to="/signup" className="btn btn-light btn-lg mt-3">
+            <Link to="/signup" className="btn btn-light btn-lg mt-3 shadow-sm">
               Regístrate Ahora
             </Link>
           </div>
@@ -70,4 +94,3 @@ function HomePage() {
 }
   
 export default HomePage;
-  

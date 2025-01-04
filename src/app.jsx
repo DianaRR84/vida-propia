@@ -9,6 +9,11 @@ import ErrorPage from "./pages/ErrorPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ClubPage from "./pages/ClubPage";
+import ContactPage from "./pages/ContactPage";
+import VidaEcoPage from "./pages/VidaEcoPage";
+import TalleresPage from "./pages/TalleresPage";
+import StorePage from "./pages/StorePage";
+import ProductDetails from "./pages/ProductDetails";
 import Navbar from "./components/Navbar";
 
 
@@ -26,6 +31,13 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/club" element={<ClubPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/vidaeco" element={<VidaEcoPage />} />
+        <Route path="/talleres" element={<TalleresPage />} />
+        <Route path="/store" element={<StorePage />} />
+        <Route path="/category/:category" element={<StorePage />} />
+        {/* Ruta dinámica para los detalles de un producto */}
+        <Route path="/product/:productId" element={<ProductDetails />} />
       </Routes>
     </div>
   );

@@ -21,6 +21,9 @@ function Navbar() {
         <NavLink to="/projects" className={({ isActive }) => (isActive ? "selected" : "")}>
           Projects
         </NavLink>
+        <NavLink to="/contact" className={({ isActive }) => (isActive ? "selected" : "")}>
+          Contact
+        </NavLink>
       </ul>
     </nav>
   );
