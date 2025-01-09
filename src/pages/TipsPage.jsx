@@ -1,5 +1,5 @@
 import React from "react";
-import tips from "../data/tips.js"; // Importa los datos si están en un archivo separado
+import tips from "/data/tips.js"; // Importa los datos si están en un archivo separado
 
 const TipsCard = ({ title, tips }) => {
   return (

@@ -40,7 +40,7 @@ function Signup() {
       setEmail(""); 
       setPassword(""); 
 
-      // Redirigir a la página de Club Vida Propia
+      // Redirigir a la página de Login
       navigate("/login"); 
 
     } catch (error) {

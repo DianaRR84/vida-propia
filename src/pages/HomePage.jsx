@@ -11,9 +11,9 @@ function HomePage() {
             <h1 className="display-4 fw-bold">Bienvenido a Vida Propia</h1>
             <p className="lead">Inspiración para transformar tu vida</p>
             <div className="d-flex justify-content-center gap-3 mt-4">
-              <a href="#about" className="btn btn-light btn-lg shadow-sm">
+              <Link to="/signup" className="btn btn-light btn-lg shadow-sm">
                 ÚNETE AL CLUB
-              </a>
+              </Link>
               <Link to="/login" className="btn btn-outline-light btn-lg shadow-sm">
                 YA SOY VIDA PROPIA
               </Link>

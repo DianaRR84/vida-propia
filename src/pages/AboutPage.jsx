@@ -1,7 +1,7 @@
 import React from "react";
-import sostenibleImage from "../assets/img/sostenible.jpg";
-import localImage from "../assets/img/local.jpg";
-import exclusividadImage from "../assets/img/exclusividad.jpg";
+import sostenibleImage from "/assets/img/sostenible.jpg";
+import localImage from "/assets/img/local.jpg";
+import exclusividadImage from "/assets/img/exclusividad.jpg";
 
 const AboutPage = () => {
   return (
@@ -91,16 +91,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Llamado a la acción */}
-      <section className="text-center bg-info py-5 rounded-4 shadow-lg mt-5">
-        <h3 className="text-white mb-4">Únete a la revolución de la moda sostenible</h3>
-        <p className="lead text-white">
-          Cada elección que haces puede transformar la industria de la moda. ¡Haz la diferencia con nosotros!
-        </p>
-        <a href="/consejos" className="btn btn-warning btn-lg text-dark fw-bold shadow-lg">
-          Descubre cómo contribuir
-        </a>
-      </section>
+      
     </div>
   );
 };

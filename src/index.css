@@ -1,23 +1,40 @@
 /* src/index.css */
 
+/* Estilo para el navbar fijo en la parte superior */
 .Navbar {
   display: flex;
-  justify-content: center;
-  background-color: #282c34;
-  padding: 1rem;
+  justify-content: space-between; /* Alinea los items de la izquierda y el carrito a la derecha */
+  background-color: #282c34 !important; /* Usar !important para asegurarse de que no sea sobrescrito */
+  padding: 0.5rem 1rem; /* Reducir el padding para que el navbar no sea tan alto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Asegura que el navbar quede por encima de otros elementos */
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade sombra al navbar para un efecto flotante */
 }
 
+/* Estilo para el listado de enlaces */
 .Navbar ul {
   display: flex;
   gap: 1rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+/* Estilo para los enlaces */
 .Navbar a {
   text-decoration: none;
   color: white;
+  font-size: 1rem; /* Reducir el tamaño de fuente */
+  padding: 0.5rem 1rem; /* Añadir algo de espaciado alrededor de los enlaces */
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Añadir transiciones suaves */
 }
 
+/* Estilo para los enlaces cuando están seleccionados */
 .selected {
   text-shadow: 1px 0px 3px white;
   color: #fff;
@@ -25,3 +42,73 @@
   padding-bottom: 5px;
 }
 
+/* Estilo para el icono del carrito */
+.Navbar .cart-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para el icono del carrito (con el ícono de Bootstrap) */
+.Navbar .cart-container i {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer; /* Asegura que sea clickeable */
+}
+
+/* Estilo para la burbuja de número de artículos en el carrito */
+.Navbar .cart-container .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c; /* Rojo para destacar */
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 50%;
+}
+
+/* Estilo para el mensaje "Artículo añadido" */
+.Navbar .cart-container .cart-message {
+  position: absolute;
+  top: 10px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #27ae60; /* Verde de éxito */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  display: none; /* Se oculta por defecto */
+  z-index: 10;
+}
+
+/* Mostrar el mensaje cuando el artículo se haya añadido */
+.Navbar .cart-container .cart-message.show {
+  display: block;
+}
+
+/* Estilo para los enlaces al pasar el mouse */
+.Navbar a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo semitransparente cuando se pasa el mouse */
+}
+
+
+/* Ajustar el margen superior para que el contenido no quede debajo del navbar */
+body {
+  margin-top: 80px; /* Ajusta el valor según el tamaño de tu navbar */
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  text-align: center;
+}
