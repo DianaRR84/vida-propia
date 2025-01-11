@@ -15,7 +15,7 @@ const VidaEcoPage = () => {
           Authorization: `Bearer ${vimeoAccessToken}`,
         },
         params: {
-          query: "recycling", // Búsqueda relacionada con reciclaje de ropa
+          query: "upcycling", // Búsqueda relacionada con reciclaje de ropa
           per_page: 6, // Número de videos que deseas mostrar
         },
       });

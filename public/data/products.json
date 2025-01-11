@@ -5,6 +5,7 @@
       "name": "Bandoleras Maxi",
       "description": "Nuestra bandolera maxi es tu nueva mejor amiga. Con su amplio espacio interior y dos bolsillos exteriores de fácil acceso para tus objetos más utilizados, y dos bolsillos interiores seguros para tus pertenencias más valiosas, tendrás todo organizado y a mano. ¡Perfecta para el día a día!",
       "price": "48€",
+      "category": "bandoleras",
       "models": [
         {
           "name": "Modelo Skulls",
@@ -12,9 +13,9 @@
         },
         {
           "name": "Modelo África",
-          "img": "/assets/img/products/bandolersamaxi/bmafrica.jpg"
+          "img": "/assets/img/products/bandolerasmaxi/bmafrica.jpg"
         }
       ]
     }
-  ]
+]
   

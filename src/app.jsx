@@ -24,6 +24,7 @@ function App() {
     <div className="App">
       <CartProvider> {/* Envuelve la aplicación con el CartProvider */}
         <Navbar />
+        
         <Routes>
           <Route path="/" element={<HomePage />} />
           {/*<Route path="/tips" element={<TipsPage />} />*/}

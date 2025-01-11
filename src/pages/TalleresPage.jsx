@@ -2,41 +2,36 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col, Dropdown } from "react-bootstrap";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "moment/locale/es"; // Importa la localización en español
+import "moment/locale/es";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-moment.locale("es"); // Configura el idioma a español
-
+// Configurar moment en español y que la semana inicie en lunes
+moment.locale("es");
 moment.updateLocale("es", {
   week: {
-    dow: 1, // Primer día de la semana (0 = domingo, 1 = lunes)
+    dow: 1, // Lunes
   },
 });
 
-const localizer = momentLocalizer(moment); // Crear el localizador de moment
+const localizer = momentLocalizer(moment);
 
 const TalleresPage = () => {
-  const [talleres, setTalleres] = useState([]); // Cargar talleres dinámicamente
+  const [talleres, setTalleres] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTaller, setSelectedTaller] = useState(null);
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedMonth, setSelectedMonth] = useState(currentDate);
-  const [inscripto, setInscripto] = useState(false); // Estado para controlar la inscripción
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
 
-
+  // Cargar talleres desde el JSON
   useEffect(() => {
-    // Cargar talleres desde el archivo JSON
     fetch("/data/talleres.json")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al cargar los talleres.");
-        }
+        if (!response.ok) throw new Error("Error al cargar los talleres.");
         return response.json();
       })
       .then((data) => {
         const parsedData = data.map((taller) => ({
           ...taller,
-          start: new Date(taller.start), // Convertir a objetos Date
+          start: new Date(taller.start),
           end: new Date(taller.end),
         }));
         setTalleres(parsedData);
@@ -44,23 +39,23 @@ const TalleresPage = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  // Validar si el taller está lleno
+  // Validar cupo completo
   const isCupoLleno = (taller) => {
     return taller.inscritos.length >= taller.cupoMaximo;
   };
 
-  // Manejar el evento de selección del taller
+  // Seleccionar taller al hacer clic
   const handleSelectEvent = (event) => {
     setSelectedTaller(event);
     setShowModal(true);
   };
 
-  // Manejar el modal
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTaller(null);
   };
 
+  // Inscripción
   const handleSubmitInscription = (event) => {
     event.preventDefault();
 
@@ -72,24 +67,22 @@ const TalleresPage = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
 
-    // Añadir la persona inscrita al taller seleccionado
     const updatedTaller = {
       ...selectedTaller,
       inscritos: [...selectedTaller.inscritos, { name, email }],
     };
 
-    // Actualizar el estado de talleres con la nueva lista de inscritos
     setTalleres((prevTalleres) =>
       prevTalleres.map((taller) =>
         taller.id === updatedTaller.id ? updatedTaller : taller
       )
     );
 
-    alert("Inscripción realizada con éxito");
-    setInscripto(true);
+    alert("¡Inscripción realizada con éxito!");
     handleCloseModal();
   };
 
+  // Filtrar talleres por mes seleccionado
   const filterTalleresByMonth = (month) => {
     const startOfMonth = moment(month).startOf("month").toDate();
     const endOfMonth = moment(month).endOf("month").toDate();
@@ -101,14 +94,9 @@ const TalleresPage = () => {
     );
   };
 
-  // Cambiar el mes seleccionado
+  // Cambiar mes
   const handleMonthChange = (month) => {
     setSelectedMonth(month);
-  };
-
-  // Manejar la navegación del calendario
-  const handleNavigate = (date) => {
-    setSelectedMonth(date);
   };
 
   return (
@@ -116,23 +104,24 @@ const TalleresPage = () => {
       <h1 className="text-center mb-5">Nuestros Talleres</h1>
 
       <Row>
-        {/* Calendario del mes actual */}
+        {/* Calendario */}
         <Col md={8}>
           <Calendar
             localizer={localizer}
             events={filterTalleresByMonth(selectedMonth)}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 400 }}
+            style={{ height: 500 }}
             views={["month"]}
             date={selectedMonth}
-            onNavigate={handleNavigate}
-            culture="es" // Establecer el idioma a español
+            onNavigate={handleMonthChange}
+            culture="es"
             formats={{
-              weekdayFormat: (date, culture, localizer) => moment(date).format("dddd"), // Formato completo del día en español
+              weekdayFormat: (date) => moment(date).format("dddd"),
+              dayFormat: (date) => moment(date).format("D"),
             }}
             onSelectEvent={handleSelectEvent}
-            toolbar={false} // Elimina los botones predeterminados
+            toolbar={true}
             dayPropGetter={(date) => {
               const hasEvent = talleres.some(
                 (taller) =>
@@ -150,7 +139,7 @@ const TalleresPage = () => {
           />
         </Col>
 
-        {/* Selector para cambiar el mes */}
+        {/* Selector de mes */}
         <Col md={4}>
           <h4 className="mb-3">Selecciona otro mes</h4>
           <Dropdown>
@@ -175,46 +164,53 @@ const TalleresPage = () => {
         </Col>
       </Row>
 
-      {/* Modal para mostrar los detalles del taller */}
+      {/* Modal del taller */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{selectedTaller?.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="text-center">
-            <img
-              src={selectedTaller?.image}
-              alt={selectedTaller?.title}
-              className="img-fluid mb-3"
-              style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "cover" }} // Estilo para limitar tamaño
-            />
-          </div>
-          <p>{selectedTaller?.description}</p>
+          {selectedTaller && (
+            <>
+              <div className="text-center">
+                <img
+                  src={selectedTaller.image}
+                  alt={selectedTaller.title}
+                  className="img-fluid mb-3"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "200px",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+              <p>{selectedTaller.description}</p>
+              <p>
+                {isCupoLleno(selectedTaller) ? (
+                  <span className="text-danger">Cupo completo</span>
+                ) : (
+                  <span>
+                    {selectedTaller.inscritos.length} / {selectedTaller.cupoMaximo} inscritos
+                  </span>
+                )}
+              </p>
 
-          <p>
-            {isCupoLleno(selectedTaller) ? (
-              <span className="text-danger">Cupo completo</span>
-            ) : (
-              <span>
-                {selectedTaller?.inscritos?.length} / {selectedTaller?.cupoMaximo} inscritos
-              </span>
-            )}
-          </p>
-
-          {!isCupoLleno(selectedTaller) && (          
-            <Form onSubmit={handleSubmitInscription}>
-              <Form.Group controlId="name">
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control type="text" placeholder="Introduce tu nombre" required />
-              </Form.Group>
-              <Form.Group controlId="email">
-                <Form.Label>Correo electrónico</Form.Label>
-                <Form.Control type="email" placeholder="Introduce tu correo" required />
-              </Form.Group>
-              <Button variant="primary" type="submit" className="mt-3">
-                Inscribirse
-              </Button>
-            </Form>
+              {!isCupoLleno(selectedTaller) && (
+                <Form onSubmit={handleSubmitInscription}>
+                  <Form.Group controlId="name">
+                    <Form.Label>Nombre</Form.Label>
+                    <Form.Control type="text" placeholder="Introduce tu nombre" required />
+                  </Form.Group>
+                  <Form.Group controlId="email">
+                    <Form.Label>Correo electrónico</Form.Label>
+                    <Form.Control type="email" placeholder="Introduce tu correo" required />
+                  </Form.Group>
+                  <Button variant="primary" type="submit" className="mt-3">
+                    Inscribirse
+                  </Button>
+                </Form>
+              )}
+            </>
           )}
         </Modal.Body>
       </Modal>

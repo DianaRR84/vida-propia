@@ -2,22 +2,22 @@
     {
       "id": 1,
       "title": "Taller de Costura a Máquina",
+      "description": "Crea tu propio bolso con materiales reciclados.",
       "start": "2025-04-15T10:00:00",
       "end": "2025-04-15T12:00:00",
-      "description": "Crea tu propio bolso con materiales reciclados.",
       "image": "/assets/img/talleres/taller1.JPG",
-      "cupoMaximo": 20,
-      "inscritos": [] 
+      "inscritos": [],
+      "cupoMaximo": 20
     },
     {
       "id": 2,
       "title": "Taller de Bordado",
+      "description": "Aprende a bordar realizando bonitos apliques",
       "start": "2025-05-20T14:00:00",
       "end": "2025-05-20T16:00:00",
-      "description": "Aprende a bordar realizando bonitos apliques",
       "image": "/assets/img/talleres/taller2.JPG",
-      "cupoMaximo": 15,
-      "inscritos": []
+      "inscritos": [],
+      "cupoMaximo": 15
     }
   ]
   
