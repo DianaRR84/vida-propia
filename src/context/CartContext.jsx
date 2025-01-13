@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
       setCartItems((prevItems) => [...prevItems, newItem]);
     }
 
-    setCartMessage("Artículo añadido correctamente");
+    setCartMessage("Artículo añadido");
     setTimeout(() => setCartMessage(""), 2000);  // Ocultar mensaje después de 2s
   };
 

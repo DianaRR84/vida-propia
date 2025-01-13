@@ -9,26 +9,43 @@ function HomePage() {
 
     // Llamada a la API de citas
     useEffect(() => {
-        const fetchQuote = async () => {
-            try {
-                const response = await fetch("https://api.quotable.io/random");
-                if (!response.ok) {
-                    throw new Error("Error al cargar la cita");
-                }
-                const data = await response.json();
-                setQuote(data.content);
-                setAuthor(data.author);
-            } catch (error) {
-                console.error("Error:", error);
-                setQuote("La inspiración también viene de nuestros propios pasos.");
-                setAuthor("Vida Propia");
-            } finally {
-                setLoading(false);
-            }
-        };
+      const fetchQuote = async () => {
+          const today = new Date().toLocaleDateString();  // Fecha actual
+          const savedQuote = localStorage.getItem("dailyQuote");
+          const savedAuthor = localStorage.getItem("dailyAuthor");
+          const savedDate = localStorage.getItem("quoteDate");
 
-        fetchQuote();
-    }, []);
+          // Si la cita guardada es del día actual, cargarla desde localStorage
+          if (savedQuote && savedDate === today) {
+              setQuote(savedQuote);
+              setAuthor(savedAuthor);
+              setLoading(false);
+          } else {
+              try {
+                  const response = await fetch("https://api.quotable.io/random");
+                  if (!response.ok) {
+                      throw new Error("Error al cargar la cita");
+                  }
+                  const data = await response.json();
+                  setQuote(data.content);
+                  setAuthor(data.author);
+
+                  // Guardar la nueva cita y la fecha en localStorage
+                  localStorage.setItem("dailyQuote", data.content);
+                  localStorage.setItem("dailyAuthor", data.author);
+                  localStorage.setItem("quoteDate", today);
+              } catch (error) {
+                  console.error("Error:", error);
+                  setQuote("La inspiración también viene de nuestros propios pasos.");
+                  setAuthor("Vida Propia");
+              } finally {
+                  setLoading(false);
+              }
+          }
+      };
+
+      fetchQuote();
+  }, []);
 
     return (
       <div className="container-fluid p-0">
@@ -103,7 +120,7 @@ function HomePage() {
                 <Link to="/store" className="text-decoration-none text-dark">
                   <div className="p-4 rounded shadow-lg hover-shadow">
                     <FaShoppingBag className="text-danger fs-1 mb-3" />
-                    <h4 className="fw-bold">PIEZAS ÚNICAS</h4>
+                    <h4 className="fw-bold">TIENDA</h4>
                     <p className="text-muted">
                       Nuestras mochilas y bolsos están hechos a partir de tejidos recuperados de la campaña de recogida que tenemos en la tienda y pequeñas cantidades de telas especiales que compramos.
                       <br></br>

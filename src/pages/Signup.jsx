@@ -1,19 +1,21 @@
-// Signup.jsx
 import React, { useState } from "react";
 import { auth, db } from "../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; // Importar Firestore para guardar los datos
 import { useNavigate } from "react-router-dom"; // Importar useNavigate para la redirección
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Importar íconos de ojo de react-icons
+import { Modal, Button } from "react-bootstrap"; // Importar el modal de Bootstrap
 
 function Signup() {
-    const [name, setName] = useState(""); // Estado para el nombre
-    const [lastName, setLastName] = useState(""); // Estado para el apellido
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [passwordVisible, setPasswordVisible] = useState(false); // Estado para alternar visibilidad de la contraseña
-    const navigate = useNavigate(); // Usamos useNavigate para redirigir
+  const [name, setName] = useState(""); // Estado para el nombre
+  const [lastName, setLastName] = useState(""); // Estado para el apellido
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false); // Estado para alternar visibilidad de la contraseña
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const [modalMessage, setModalMessage] = useState(""); // Mensaje que se mostrará en el modal
+  const navigate = useNavigate(); // Usamos useNavigate para redirigir
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -32,7 +34,9 @@ function Signup() {
         createdAt: new Date(),
       });
 
-      alert(`¡${name} ${lastName}! , Ya erea parte de Vida Propia. Ahora puedes iniciar sesión `);
+      // Mostrar mensaje de éxito en el modal
+      setModalMessage(`¡${name} ${lastName}!, ya eres parte de Vida Propia. Ahora puedes iniciar sesión.`);
+      setShowModal(true); // Mostrar el modal
 
       // Limpiar los campos del formulario después de un registro exitoso
       setName(""); 
@@ -41,33 +45,38 @@ function Signup() {
       setPassword(""); 
 
       // Redirigir a la página de Login
-      navigate("/login"); 
+      setTimeout(() => navigate("/login"), 2000); // Redirigir después de 2 segundos para que el modal se vea
 
     } catch (error) {
-        console.error("Error al registrar el usuario:", error.message); // Imprimir el error en consola para más detalles
+      console.error("Error al registrar el usuario:", error.message); // Imprimir el error en consola para más detalles
 
-        // Manejo de errores
-        if (error.code === "auth/email-already-in-use") {
-            setError("El correo ya está registrado.");
-        } else if (error.code === "auth/invalid-email") {
-            setError("El formato del correo electrónico no es válido.");
-        } else if (error.code === "auth/weak-password") {
-            setError("La contraseña debe tener al menos 6 caracteres.");
-        } else {
-            setError("Error al registrar. Inténtalo de nuevo.");
-        }
+      // Manejo de errores
+      if (error.code === "auth/email-already-in-use") {
+        setError("El correo ya está registrado.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("El formato del correo electrónico no es válido.");
+      } else if (error.code === "auth/weak-password") {
+        setError("La contraseña debe tener al menos 6 caracteres.");
+      } else {
+        setError("Error al registrar. Inténtalo de nuevo.");
+      }
 
-        // Limpiar los campos si el registro falla
-        setName(""); 
-        setLastName("");
-        setEmail(""); 
-        setPassword("");
+      // Limpiar los campos si el registro falla
+      setName(""); 
+      setLastName("");
+      setEmail(""); 
+      setPassword("");
     }
   };
 
   // Función para alternar la visibilidad de la contraseña
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -145,12 +154,25 @@ function Signup() {
             </div>
           </div>
         </div>
-        
+
         {/* Botón para enviar el formulario */}
         <button type="submit" className="btn btn-primary w-100">
           Registrar
         </button>
       </form>
+
+      {/* Modal de alerta */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registrado con éxito</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

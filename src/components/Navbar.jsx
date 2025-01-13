@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom"; // Importamos NavLink
-import { useCart } from "../context/CartContext"; // Importa el hook
-import CartModal from "./CartModal";  // Importamos el componente CartModal
+import { NavLink } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import CartModal from "../components/CartModal";
 
 const Navbar = () => {
-  const { cartCount, cartMessage } = useCart(); // Usa el hook del contexto
-  const [showCartModal, setShowCartModal] = useState(false);  // Estado para controlar la visualización del modal
+  const { cartCount, cartMessage } = useCart();
+  const [showCartModal, setShowCartModal] = useState(false);
 
-  // Función para abrir el modal del carrito
+  // ✅ Abre/Cierra el modal
   const toggleCartModal = () => {
     setShowCartModal(!showCartModal);
   };
@@ -19,41 +19,36 @@ const Navbar = () => {
           <NavLink to="/" className={({ isActive }) => (isActive ? "selected" : "")}>
             Home
           </NavLink>
-          <NavLink to="/tips" className={({ isActive }) => (isActive ? "selected" : "")}>
-            Tips
-          </NavLink>
-          <NavLink to="/tutorials" className={({ isActive }) => (isActive ? "selected" : "")}>
-            Tutorials
-          </NavLink>
-          <NavLink to="/about" className={({ isActive }) => (isActive ? "selected" : "")}>
-            About
-          </NavLink>
+
           <NavLink to="/projects" className={({ isActive }) => (isActive ? "selected" : "")}>
             Projects
           </NavLink>
+          
+          <NavLink to="/about" className={({ isActive }) => (isActive ? "selected" : "")}>
+            About
+          </NavLink>
+          
           <NavLink to="/contact" className={({ isActive }) => (isActive ? "selected" : "")}>
             Contact
           </NavLink>
         </ul>
 
-        {/* Icono del carrito */}
+        {/* 🛒 Icono del carrito (abre el modal) */}
         <div className="d-flex align-items-center ms-auto position-relative">
-          <NavLink to="/store" className="btn position-relative" onClick={toggleCartModal}>
-            <i className="bi bi-cart" style={{ fontSize: "1.5rem" }}></i>
-
-            {/* Mostrar la burbuja con el número de artículos si es mayor que 0 */}
+          <button className="btn position-relative" onClick={toggleCartModal}>
+            <i className="bi bi-cart" style={{ fontSize: "1.5rem", color: "#fff" }}></i>
             {cartCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cartCount}
               </span>
             )}
-          </NavLink>
+          </button>
 
-          {/* Mensaje de artículo añadido */}
+          {/* ✅ Mensaje de artículo añadido */}
           {cartMessage && (
             <div
-              className="position-absolute top-0 start-100 translate-middle p-2 bg-success text-white rounded"
-              style={{ zIndex: 10, right: "20px", top: "10px" }}
+              className="position-absolute top-1 start-0 translate-middle p-2 bg-success text-white rounded"
+              style={{ zIndex: 10, fontSize: "0.7rem", left: "-50px", top: "70px" }}
             >
               {cartMessage}
             </div>
@@ -61,8 +56,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Modal de Carrito (Si está activo) */}
-      {showCartModal && <CartModal toggleCartModal={toggleCartModal} />}
+      {/* ✅ Modal del carrito */}
+      {showCartModal && <CartModal onClose={toggleCartModal} />}
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-// Login.jsx
+
 import React, { useState } from "react";
 import { auth, db } from "../firebase/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -18,6 +18,13 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+
+    // Verificar si las credenciales son las de administrador
+    if (email === "di_siero@hotmail.com" && password === "123") {
+      navigate("/admin"); // Redirigir a la página de Administrador
+      return; // Terminar la función si es el administrador
+    }
+    
     try {
         // Intentar iniciar sesión con Firebase Auth
       const userCredential = await signInWithEmailAndPassword(auth, email, password);

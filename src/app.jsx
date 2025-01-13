@@ -1,10 +1,13 @@
 
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-{/*import TipsPage from "./pages/TipsPage";*/}
-import TutorialsPage from "./pages/TutorialsPage";
+import TipsPage from "./pages/TipsPage";
+import SorteosPage from "./pages/SorteosPage";
+import AdminPage from "./pages/AdminPage";
 import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import AmapolasPage from "./pages/AmapolasPage";
+import RevolucionPage from "./pages/RevolucionPage";
 import ErrorPage from "./pages/ErrorPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -14,7 +17,6 @@ import VidaEcoPage from "./pages/VidaEcoPage";
 import TalleresPage from "./pages/TalleresPage";
 import StorePage from "./pages/StorePage";
 import ProductDetails from "./pages/ProductDetails";
-import RevolucionPage from "./pages/RevolucionPage";
 import Navbar from "./components/Navbar";
 import { CartProvider } from "./context/CartContext"; 
 
@@ -27,11 +29,13 @@ function App() {
         
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/*<Route path="/tips" element={<TipsPage />} />*/}
-          <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/tips" element={<TipsPage />} />
+          <Route path="/sorteos" element={<SorteosPage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/revolucion" element={<RevolucionPage />} />
+          <Route path="/amapolas" element={<AmapolasPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
