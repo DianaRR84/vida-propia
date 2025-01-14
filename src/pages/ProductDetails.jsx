@@ -93,16 +93,18 @@ const ProductDetails = () => {
           </div>
 
           {/* Selección de cantidad */}
-          <div className="mb-3">
-            <label htmlFor="quantity" className="form-label">Cantidad</label>
-            <input
-              type="number"
-              id="quantity"
-              className="form-control"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
-              min="1"
-            />
+          <div className="mb-3 row">
+            <label htmlFor="quantity" className="col-sm-2 col-form-label">Cantidad</label>
+            <div className="col-sm-4">
+              <input
+                type="number"
+                id="quantity"
+                className="form-control form-control-sm"  // Input pequeño
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                min="1"
+              />
+            </div>
           </div>
 
           {/* Botón Añadir al carrito */}

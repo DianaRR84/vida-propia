@@ -1,88 +1,87 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Button, Alert, Spinner, Card, Row, Col } from "react-bootstrap";
 
 const VidaEcoPage = () => {
-  const [videos, setVideos] = useState([]);
-  
-  // Tu Access Token generado en Vimeo
-  const vimeoAccessToken = "b90a799d326b17f5ad5d9aef9a4e8a5a";
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Función para obtener los videos de Vimeo
-  const fetchVimeoVideos = async () => {
+  // Credenciales de Habitica
+  const USER_ID = process.env.REACT_APP_HABITICA_USER_ID; 
+  const API_TOKEN = process.env.REACT_APP_HABITICA_API_TOKEN; 
+  const API_URL = "https://habitica.com/api/v3";
+
+  // Configuración de autenticación
+  const authHeaders = {
+    "x-api-user": USER_ID,
+    "x-api-key": API_TOKEN,
+  };
+
+  // Obtener tareas de Habitica
+  const fetchTasks = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get("https://api.vimeo.com/videos", {
-        headers: {
-          Authorization: `Bearer ${vimeoAccessToken}`,
-        },
-        params: {
-          query: "upcycling", // Búsqueda relacionada con reciclaje de ropa
-          per_page: 6, // Número de videos que deseas mostrar
-        },
+      const response = await axios.get(`${API_URL}/tasks/user`, {
+        headers: authHeaders,
       });
-
-      setVideos(response.data.data);
-    } catch (error) {
-      console.error("Error al obtener los videos de Vimeo:", error);
+      setTasks(response.data.data);
+    } catch (err) {
+      console.error(err);
+      setError("Error al cargar las tareas.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Cargar los videos al montar el componente
+  // Completar una tarea
+  const completeTask = async (taskId) => {
+    try {
+      await axios.post(`${API_URL}/tasks/${taskId}/score/up`, {}, {
+        headers: authHeaders,
+      });
+      alert("¡Tarea completada! 🌱");
+      fetchTasks(); // Recargar tareas
+    } catch (err) {
+      console.error(err);
+      alert("Error al completar la tarea.");
+    }
+  };
+
+  // Cargar tareas al iniciar
   useEffect(() => {
-    fetchVimeoVideos();
+    fetchTasks();
   }, []);
 
   return (
     <div className="container my-5">
-      {/* Título Principal */}
-      <section className="text-center mb-5">
-        <h1 className="display-4 fw-bold text-success">VIDAECO</h1>
-        <p className="lead text-muted">
-          Una sección llena de alternativas para que tus actividades diarias sean más responsables.
-          <br />
-          Opciones para generar menos residuos en tu propio hogar o si tienes que comer fuera de casa.
-          <br />
-          Declara la guerra a los plásticos de un solo uso.
-        </p>
-      </section>
+      <h2 className="text-center mb-4">🌿 VidaEco - Hábitos Sostenibles 🌿</h2>
 
-      {/* Videos sobre Reciclaje */}
-      <section className="row g-4">
-        {videos.length > 0 ? (
-          videos.map((video) => (
-            <div key={video.uri} className="col-md-4">
-              <div className="card shadow border-0 h-100">
-                <div className="card-body">
-                  <h5 className="card-title text-primary">{video.name}</h5>
-                  <p className="card-text text-muted">
-                    {video.description ? video.description : "No hay descripción disponible."}
-                  </p>
-                  <a
-                    href={`https://vimeo.com${video.uri}`}
-                    className="btn btn-outline-success"
-                    target="_blank"
-                    rel="noopener noreferrer"
+      {loading && <Spinner animation="border" role="status" className="d-block mx-auto" />}
+      {error && <Alert variant="danger">{error}</Alert>}
+
+      <Row className="g-4">
+        {tasks.length > 0 ? (
+          tasks.map((task) => (
+            <Col md={4} key={task.id}>
+              <Card className="shadow">
+                <Card.Body>
+                  <Card.Title>{task.text}</Card.Title>
+                  <Card.Text>{task.notes || "Sin descripción"}</Card.Text>
+                  <Button
+                    variant="success"
+                    onClick={() => completeTask(task.id)}
                   >
-                    Ver Video
-                  </a>
-                </div>
-                <div className="card-footer">
-                  <iframe
-                    title={video.name}
-                    src={`https://player.vimeo.com/video/${video.uri.split("/")[2]}`}
-                    width="100%"
-                    height="215"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
+                    ✅ Completar
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
           ))
         ) : (
-          <p className="text-center text-muted">Cargando videos...</p>
+          <Alert variant="info">No tienes tareas. ¡Empieza a crear hábitos sostenibles! 🌎</Alert>
         )}
-      </section>
+      </Row>
     </div>
   );
 };
