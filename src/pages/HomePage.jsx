@@ -121,7 +121,7 @@ function HomePage() {
                 <div className="container">
                     <h2 className="text-center text-primary fw-bold mb-5">¿Qué te ofrecemos?</h2>
                     <div className="row text-center">
-                        <div className="col-md-4 mb-4">
+                        {/*<div className="col-md-4 mb-4">
                             <Link to="/vidaeco" className="text-decoration-none text-dark">
                                 <div className="p-4 rounded shadow-lg hover-shadow">
                                     <FaLeaf className="text-success fs-1 mb-3" />
@@ -133,8 +133,8 @@ function HomePage() {
                                     </p>
                                 </div>
                             </Link>
-                        </div>
-                        <div className="col-md-4 mb-4">
+                        </div>*/}
+                        <div className="col-md-6 mb-6">
                             <Link to="/talleres" className="text-decoration-none text-dark">
                                 <div className="p-4 rounded shadow-lg hover-shadow">
                                     <FaPaintBrush className="text-info fs-1 mb-3" />
@@ -146,7 +146,7 @@ function HomePage() {
                                 </div>
                             </Link>
                         </div>
-                        <div className="col-md-4 mb-4">
+                        <div className="col-md-6 mb-6">
                             <Link to="/store" className="text-decoration-none text-dark">
                                 <div className="p-4 rounded shadow-lg hover-shadow">
                                     <FaShoppingBag className="text-danger fs-1 mb-3" />

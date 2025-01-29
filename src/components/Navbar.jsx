@@ -17,19 +17,19 @@ const Navbar = () => {
       <div className="container-fluid">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <NavLink to="/" className={({ isActive }) => (isActive ? "selected" : "")}>
-            Home
+            Inicio
           </NavLink>
 
           <NavLink to="/projects" className={({ isActive }) => (isActive ? "selected" : "")}>
-            Projects
+            Proyectos
           </NavLink>
           
           <NavLink to="/about" className={({ isActive }) => (isActive ? "selected" : "")}>
-            About
+            Sobre nosotras
           </NavLink>
           
           <NavLink to="/contact" className={({ isActive }) => (isActive ? "selected" : "")}>
-            Contact
+            Contacto
           </NavLink>
         </ul>
 
